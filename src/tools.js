@@ -5,6 +5,10 @@ export const toolSchemas = [
     parameters: { type: 'object', properties: {
       city: { type: 'string' }, area: { type: 'string' }, bedrooms: { type: 'integer' },
       max_price_ngn_year: { type: 'integer' } } } } },
+  { type: 'function', function: { name: 'search_providers', description: 'Search service providers (artisans, tutors, cleaners and other people).',
+    parameters: { type: 'object', properties: {
+      service: { type: 'string' }, city: { type: 'string' }, area: { type: 'string' },
+      max_price_ngn: { type: 'integer' } } } } },
   { type: 'function', function: { name: 'get_listing', description: 'Get one listing by id.',
     parameters: { type: 'object', properties: { id: { type: 'string' } }, required: ['id'] } } },
 ];
@@ -13,7 +17,16 @@ export const toolSchemas = [
 const PUBLIC_FIELDS = ['id', 'title', 'city', 'area', 'bedrooms', 'price_ngn_year', 'trust', 'description'];
 const pick = (l) => Object.fromEntries(PUBLIC_FIELDS.map((k) => [k, l[k]]));
 
-export function makeTools(listings, ledger) {
+const PROVIDER_FIELDS = ['id', 'name', 'service', 'city', 'area', 'starting_price_ngn', 'trust', 'description'];
+
+export function makeTools(listings, ledger, providers = []) {
+  const recordProvider = (p) => {
+    const evidence = {};
+    for (const f of ['service', 'starting_price_ngn', 'area']) {
+      evidence[f] = ledger.add({ listingId: p.id, field: f, value: p[f], tier: p.trust, tool: 'providers' });
+    }
+    return { ...Object.fromEntries(PROVIDER_FIELDS.map((k) => [k, p[k]])), evidence };
+  };
   const record = (l) => {
     const evidence = {};
     for (const f of ['price_ngn_year', 'bedrooms', 'area']) {
@@ -22,6 +35,13 @@ export function makeTools(listings, ledger) {
     return { ...pick(l), evidence };
   };
   return {
+    search_providers: ({ service, city, area, max_price_ngn } = {}) =>
+      providers
+        .filter((p) => (!service || p.service.toLowerCase().includes(service.toLowerCase()))
+          && (!city || p.city.toLowerCase() === city.toLowerCase())
+          && (!area || p.area.toLowerCase() === area.toLowerCase())
+          && (max_price_ngn == null || p.starting_price_ngn <= max_price_ngn))
+        .slice(0, 5).map(recordProvider),
     search_listings: ({ city, area, bedrooms, max_price_ngn_year } = {}) =>
       listings
         .filter((l) => (!city || l.city.toLowerCase() === city.toLowerCase())
