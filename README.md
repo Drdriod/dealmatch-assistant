@@ -35,3 +35,14 @@ export BASETEN_API_KEY=...            # your key; never commit it or paste it in
 export LLM_PROVIDER=baseten           # model is meta-models/muse-spark-open-1026
 npm run first-call                    # hello, a tool call, and a Pidgin prompt; prints speed and token use
 ```
+
+## Where Muse Spark Open is used
+
+Confirmed by the hackathon organizers (office hours, Oct 29): Muse Spark Open running through Baseten counts as a Meta open-weight model for the Meta-model requirement and the Best Build on Open Weights prize. The Meta Model API is not required, though combining open-weight and hosted Muse models is encouraged.
+
+| Stage | Model | Why |
+|---|---|---|
+| Understand the request (English or Nigerian Pidgin), choose and call tools | Muse Spark Open (`meta-models/muse-spark-open-1026`) | Native tool calling and Pidgin support |
+| Write the answer with evidence ids and trust labels | Muse Spark Open | Same model, grounded in tool results only |
+| Repair a rejected answer once | Muse Spark Open | Receives the guard's plain-language rejection reason |
+| Safety guard (contact leaks, unknown evidence, uncited prices) | Code, not a model | Deterministic, cannot be talked out of it |
