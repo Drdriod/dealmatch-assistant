@@ -32,7 +32,12 @@ export function checkReply(text, ledger, requestText = '') {
 
   const cites = [...text.matchAll(/\[(E\d+)\]/g)];
   if (cites.some((m) => !ledger.has(m[1]))) add('unknown_evidence_id');
-  if (/\u20a6|NGN|\bnaira\b/i.test(text) && cites.length === 0) add('price_without_evidence');
+  const said = new Set((requestText.match(MONEY) ?? []).map(num));
+  for (const m of requestText.matchAll(/(\d+(?:\.\d+)?)\s*(million|m|k)\b/gi)) said.add(Math.round(Number(m[1]) * (/k/i.test(m[2]) ? 1e3 : 1e6)));
+  const ownMoney = (text.match(MONEY) ?? []).map(num).filter((v) => !said.has(v));
+  if (/\u20a6|NGN|\bnaira\b/i.test(text) && cites.length === 0 && ownMoney.length) add('price_without_evidence');
+  // The model cannot know how DealMatch verifies people; it may only report the trust level the evidence shows.
+  if (/verified badge|verified means|\bmeans (they|it|that)\b.{0,60}\b(passed|checked|verified)|passed (dealmatch )?(checks?|verification|review)/i.test(text)) add('unsupported_trust_claim');
 
   // Each citation must say what its evidence says.
   const areas = new Set([...KNOWN_AREAS, ...ledger.entries.filter((e) => e.field === 'area').map((e) => String(e.value).toLowerCase())]);
@@ -60,7 +65,6 @@ export function checkReply(text, ledger, requestText = '') {
   }
   // Every figure must come from a tool result (or from the person's own message).
   const known = new Set(ledger.entries.filter((e) => typeof e.value === 'number').map((e) => e.value));
-  const said = new Set((requestText.match(MONEY) ?? []).map(num));
   for (const m of text.matchAll(MONEY)) {
     const v = num(m[0]);
     if (PHONE.test(m[0]) || known.has(v) || said.has(v) || mismatched.has(v)) continue;
@@ -75,6 +79,7 @@ const REASON_TEXT = {
   price_without_evidence: 'it stated a price without citing evidence like [E3] next to it',
   fabricated_number: 'it contained a figure that is not in any tool result',
   claim_mismatch: 'a citation did not match what its evidence says',
+  unsupported_trust_claim: 'it described what verification involves, which you cannot know; only report the trust level shown by the evidence (verified, stated or inferred)',
 };
 // Plain-language feedback sent back to the model so it can fix its own reply once.
 export const repairInstruction = (reasons, details = []) =>

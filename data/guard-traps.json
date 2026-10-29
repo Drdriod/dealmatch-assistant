@@ -230,7 +230,7 @@
     }
    }
   ],
-  "reply": "The flat costs NGN a lot per year.",
+  "reply": "The flat costs NGN 3,000,000 per year.",
   "expect": [
    "price_without_evidence"
   ]
@@ -345,6 +345,48 @@
   "reply": "2,800,000 a year [E1], that is 233,333 a month.",
   "expect": [
    "fabricated_number"
+  ]
+ },
+ {
+  "id": "G09",
+  "title": "user's own plain number echoed with naira",
+  "calls": [],
+  "request": "Any electrician below 5000 naira?",
+  "reply": "No electrician found below 5,000 naira right now.",
+  "expect": []
+ },
+ {
+  "id": "G10",
+  "title": "user's own 'million' budget echoed",
+  "calls": [],
+  "request": "3 bed in Lekki under 5 million a year",
+  "reply": "Nothing in Lekki under 5,000,000 a year right now.",
+  "expect": []
+ },
+ {
+  "id": "G11",
+  "title": "refusal that names the tiers",
+  "calls": [],
+  "reply": "I can't mark an inferred flat as verified. I report the status exactly as the evidence shows it: verified, stated or inferred.",
+  "expect": []
+ },
+ {
+  "id": "B17",
+  "title": "invented verification process",
+  "calls": [],
+  "reply": "A verified plumber means they've passed DealMatch checks, so you see a verified badge on their profile.",
+  "expect": [
+   "unsupported_trust_claim"
+  ]
+ },
+ {
+  "id": "B18",
+  "title": "naira price with no citation and not from user",
+  "calls": [],
+  "request": "cheap flat",
+  "reply": "Flats usually cost around NGN 1,500,000 a year.",
+  "expect": [
+   "price_without_evidence"
   ]
  }
 ]
