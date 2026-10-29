@@ -3,5 +3,5 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "scripts": { "test": "node --test test/*.test.mjs", "eval": "node scripts/eval.mjs", "eval:mock": "node scripts/eval.mjs --mock" }
+  "scripts": { "test": "node --test test/*.test.mjs", "eval": "node scripts/eval.mjs", "eval:mock": "node scripts/eval.mjs --mock", "first-call": "node scripts/first-call.mjs" }
 }

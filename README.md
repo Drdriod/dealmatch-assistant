@@ -27,3 +27,11 @@ leak private contact details (contact is released only inside the protected paym
 ## Status
 
 Day 1: adapter and tool schemas. See `docs/` as it grows.
+
+## First call (Baseten, Muse Spark Open)
+
+```bash
+export BASETEN_API_KEY=...            # your key; never commit it or paste it into chat
+export LLM_PROVIDER=baseten           # model is meta-models/muse-spark-open-1026
+npm run first-call                    # hello, a tool call, and a Pidgin prompt; prints speed and token use
+```
