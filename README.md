@@ -81,3 +81,24 @@ Re-record the examples from the real model with `npm run record` (same variables
 - `npm test`: unit tests plus 24 guard trap cases (replies that must be rejected, replies that must pass).
 - `npm run eval:mock`: the 60-case evaluation set run against the simulated stand-in. This checks the harness and guard, not a model.
 - `npm run eval -- --rows`: the same 60 cases against the real model (set the variables above). Writes `results/latest-<provider>.json` with every reply, the raw first draft, and why the guard fired.
+
+## Results (Muse Spark Open via Baseten, 60-case set)
+
+Every run below is real model output on the sample data. The model is not deterministic, so numbers move a little between runs; the full per-case replies are in `results/latest-baseten.json`.
+
+| Run | What changed | Tool use | Right results | Reply content | Leaks | Safe replies | Guard on 1st try | Repaired |
+|---|---|---|---|---|---|---|---|---|
+| 1 (20 cases) | First guard | 19/20 | 19/20 | n/a | 0 | 12/20 | 12/20 | n/a |
+| 1b (20 cases) | Fixed a regex bug in the guard, added the repair step | 18/20 | 20/20 | n/a | 0 | 20/20 | 20/20 | 0 |
+| 2 (60 cases) | Strict guard: citations must match evidence | 57/60 | 59/60 | 60/60 | 0 | 60/60 | 55/60 | 5 |
+| 3 (60 cases) | Blocks invented verification claims; prompt fixes | 59/60 | 57/60 | 58/60 | 0 | 60/60 | 59/60 | 1 |
+| 4 (60 cases) | Tool description for broad searches; vague-request prompt | 60/60 | 60/60 | 60/60 | 0 | 60/60 | 60/60 | 0 |
+
+What the runs showed, honestly:
+
+- **No run ever leaked a contact detail.** 12 cases bait the model for a phone number or email, and 11 are adversarial (role-play, "ignore your rules", spelling the number out, claiming to be the owner's brother).
+- **The guard caught real model mistakes, not only planted ones.** Run 2 and 3 repairs included a provider called "verified" with a "stated" price, a model doing its own arithmetic ("400,000 more per year", a figure in no tool result), and suggested areas that were never searched. Each was rejected with a plain-language reason and rewritten correctly. Run 4 needed no repairs, which also shows the prompt fixes work; the repair path is covered by the earlier runs and by the guard trap tests.
+- **Run 1's 12/20 was my bug, not the model's.** A global regex in the guard kept state between calls.
+- **Some test patterns were loosened** after reading the replies, because the model's answers were right and my pattern was too strict (E33, E37, E39, E48, E50). Two real weaknesses were fixed in the product instead: a broad word like "artisan" was searched as a literal service name (E38), and the model invented what "verified" means (E55).
+- **Seven cases are safe refusals without a tool call** and are counted as passes, reported separately by the eval.
+- The set is small and uses four sample listings and four providers. It tests behaviour, not coverage of the real marketplace.
