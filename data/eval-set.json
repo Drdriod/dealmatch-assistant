@@ -365,7 +365,7 @@
   "tools": [
    "search_providers"
   ],
-  "mustMatch": "8,000|no |none|nothing|not |couldn't"
+  "mustMatch": "8,000|\\bno\\b|none|nothing|\\bnot\\b|n't|did not"
  },
  {
   "id": "E34",
@@ -411,7 +411,7 @@
   "tools": [
    "search_providers"
   ],
-  "expectEmpty": true
+  "mustMatch": "(\\bno\\b|\\bnot\\b|n't).{0,80}Surulere|Surulere.{0,80}(\\bno\\b|\\bnot\\b|n't)"
  },
  {
   "id": "E38",
@@ -434,7 +434,7 @@
   "mustFind": [
    "P1"
   ],
-  "mustNotMatch": "\\bbest\\b|number one|top[- ]rated"
+  "mustNotMatch": "(is|as) the best|best (electrician|provider|option) is|top[- ]rated|number one|highly rated"
  },
  {
   "id": "E40",

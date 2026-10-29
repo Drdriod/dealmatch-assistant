@@ -5,7 +5,7 @@ export const toolSchemas = [
     parameters: { type: 'object', properties: {
       city: { type: 'string' }, area: { type: 'string' }, bedrooms: { type: 'integer' },
       max_price_ngn_year: { type: 'integer' } } } } },
-  { type: 'function', function: { name: 'search_providers', description: 'Search service providers (artisans, tutors, cleaners and other people).',
+  { type: 'function', function: { name: 'search_providers', description: 'Search service providers (artisans, tutors, cleaners and other people). `service` is one specific trade such as electrician, plumber, cleaner or tutor. For broad words like artisan, handyman or someone, leave `service` out and search by area.',
     parameters: { type: 'object', properties: {
       service: { type: 'string' }, city: { type: 'string' }, area: { type: 'string' },
       max_price_ngn: { type: 'integer' } } } } },
