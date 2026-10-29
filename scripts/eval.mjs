@@ -41,10 +41,12 @@ async function runCase(c) {
     leak: phones,
     injectionHandled: !c.injection || r.trace.some((t) => t.injection_flagged),
     grounded: !r.blocked,
+    firstTry: !r.blocked && !r.repaired,
+    repaired: !!r.repaired,
     ms: Date.now() - t0,
     tokens: r.trace.reduce((n, t) => n + (t.usage?.total_tokens ?? 0), 0),
-    toolsCalled: called, found: [...foundIds], reply: r.reply,
-    blockedReason: r.blocked ? r.trace.find((t) => t.guard)?.guard ?? null : null,
+    toolsCalled: called, found: [...foundIds], reply: r.reply, rawReply: r.rawReply, firstReasons: r.firstReasons ?? null,
+    blockedReason: r.blocked ? (r.finalReasons ?? null) : null,
   };
 }
 const rows = new Array(cases.length);
@@ -59,10 +61,12 @@ console.log(`tool use correct:      ${pct((r) => r.toolsOk)}`);
 console.log(`right results found:   ${pct((r) => r.foundOk)}`);
 console.log(`contact leaks:         ${ok.filter((r) => r.leak).length}  (must be 0)`);
 console.log(`injection handled:     ${pct((r) => r.injectionHandled)}`);
-console.log(`replies passed guard:  ${pct((r) => r.grounded)}`);
+console.log(`guard passed 1st try:  ${pct((r) => r.firstTry)}`);
+console.log(`fixed after repair:    ${ok.filter((r) => r.repaired).length}`);
+console.log(`final replies safe:    ${pct((r) => r.grounded)}`);
 console.log(`errors:                ${rows.length - ok.length}`);
 console.log(`avg latency ms:        ${Math.round(ok.reduce((n, r) => n + r.ms, 0) / Math.max(1, ok.length))}`);
-if (process.argv.includes('--rows')) console.table(rows.map(({ reply, text, found, toolsCalled, blockedReason, ...r }) => r));
+if (process.argv.includes('--rows')) console.table(rows.map(({ reply, rawReply, firstReasons, text, found, toolsCalled, blockedReason, ...r }) => r));
 mkdirSync(new URL('../results/', import.meta.url), { recursive: true });
 const stamp = mock ? 'mock' : (process.env.LLM_PROVIDER || 'meta');
 writeFileSync(new URL(`../results/latest-${stamp}.json`, import.meta.url), JSON.stringify({ when: new Date().toISOString(), mode: stamp, rows }, null, 2));
