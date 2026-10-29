@@ -1,29 +1,24 @@
-# 3-minute demo video script
+# 3-minute demo video: script and shot list
 
-Record the Agent Console (`npm run demo`, replay mode) in a browser, full screen, one take per segment. Total target 2:50. Keep the on-screen labels (SIMULATED, recorded run) visible.
+Target length 2:45 (hard limit 3:00). Record the Agent Console (`npm run demo`) in a clean browser window at 85% zoom, light theme. Keep the on-screen labels (recorded run, SIMULATED, scripted) visible.
 
-**0:00-0:15 Opening line (required by the organizers)**
-"DealMatch is an existing Nigerian marketplace for places and people. What existed before this hackathon: the marketplace itself. What I built this week: this agent, in a new public repo, running on Muse Spark Open." (Show the console header.)
+On-screen text for the first 10 seconds (lower third):
+"Existing: DealMatch marketplace  |  New this week: this AI agent"
 
-**0:15-0:45 The problem**
-"In Nigeria, finding a flat or an artisan means paying an agent, sharing numbers, and hoping. DealMatch's rule is: pay first, then the number. So an AI helper has one job it must never get wrong: it cannot leak a contact, and it cannot invent facts."
+| Time | On screen | You say |
+|---|---|---|
+| 0:00 | Console header + lower-third | "DealMatch is a Nigerian marketplace that already existed. This week I built something new on top of it: an AI agent running on Meta's Muse Spark Open." |
+| 0:12 | Same | "The hard part: an assistant that finds you a flat or an electrician must never leak the owner's phone number, and never make up a fact. So I built it so it physically can't." |
+| 0:30 | Click "Pidgin: cheap 2 bedroom"; trace plays | "I ask in Pidgin. Watch the right side. The model decides to search, gets two flats back, and answers in Pidgin." |
+| 0:50 | Click an [E1] tag; table row highlights | "Every price, bedroom count and area has a tag. Click it and you see where the fact came from, and whether it's verified, stated or inferred. This flat is verified. This one is only inferred, and the assistant says so." |
+| 1:20 | Click "Ask for the landlord's number" | "Now I ask for the landlord's number. It refuses and points to the protected request. It can't hand it over, because phone numbers are removed before the model ever sees a listing." |
+| 1:40 | Click "Plumber (listing hides an attack)"; point at the red "Attack blocked" step | "This listing hides an instruction meant to trick the AI. It's stripped out before the model sees it." |
+| 2:00 | Click "Guard demo" (scripted); show the red draft, the reason, the fixed answer | "Even so, AI makes mistakes, so every answer passes a checker that is plain code, not AI. This example is scripted: the draft says 3.2 million, the evidence says 2.8. The guard rejects it, tells the model why, and the rewrite is correct. On real runs it caught the model doing its own arithmetic and mislabelling a provider as verified." |
+| 2:30 | README results table | "I tested 60 questions, 12 of them tricks to extract a phone number. Zero leaks." |
+| 2:40 | Console + repo link | "Understanding and answering run on Muse Spark Open. The safety checks are code. Sample data, public repo. DealMatch Assistant: ask in English or Pidgin, and nothing unsafe gets through." |
 
-**0:45-1:25 Demo 1: Pidgin search, with evidence**
-Click "Pidgin: cheap 2 bedroom". Narrate as the trace plays: "Muse Spark Open reads Pidgin, decides to call the search tool, gets two flats back. Every price, bedroom count and area carries an evidence id and a trust level: verified, stated or inferred." Click an [E1] chip to highlight its ledger row.
-
-**1:25-2:00 Demo 2: privacy and attack**
-Click "Ask for the landlord's number": "Phone numbers are stripped before the model ever sees a listing, so it cannot reveal what it never receives." Then "Plumber (listing hides an attack)": "This listing has an instruction hidden in its description. It was removed before the model saw it."
-
-**2:00-2:35 Demo 3: the guard**
-"The guard is plain code, not a model, so it cannot be talked out of it." Click "Guard demo" and say clearly: "This one is scripted, to show the mechanism." Show the rejected draft with the wrong price, the plain-language reason, the rewritten answer. Then: "On real Muse Spark Open runs, the guard caught the model calling a provider verified with the wrong label, and doing its own arithmetic. Each was rejected and rewritten."
-
-**2:35-2:55 Numbers and open weights**
-"A 60-case evaluation, including 12 bait-for-a-phone-number cases and 11 adversarial ones: zero leaks, every final answer safe." (Show the README results table.) "Understanding, tool calls and answers run on Muse Spark Open through Baseten; the safety checks run in code."
-
-**2:55-3:00 Close**
-"DealMatch Assistant: ask in English or Pidgin, and nothing it says is unverified or unsafe. Repo link on screen."
-
-## Do before recording
-- Make sure the replay file is the real-model recording (`npm run record`), not the simulated one.
-- State on screen or in voice that sample data is used and the guard demo is scripted.
-- Do not show your API key or terminal history.
+## Notes
+- Say clearly that the guard demo is scripted and the listings are sample data. Judges rewarded that kind of label in the organizers' answers.
+- Open "Model reasoning (excerpt)" once on camera at about 0:40 for two seconds. It shows the model really chooses its tools.
+- Do not show your API key, terminal history or other browser tabs.
+- For X: if the platform limits your upload length, cut a 2:00 version (drop the plumber segment) and put the full video on YouTube (unlisted is fine) in the reply.
