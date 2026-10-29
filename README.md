@@ -46,3 +46,38 @@ Confirmed by the hackathon organizers (office hours, Oct 29): Muse Spark Open ru
 | Write the answer with evidence ids and trust labels | Muse Spark Open | Same model, grounded in tool results only |
 | Repair a rejected answer once | Muse Spark Open | Receives the guard's plain-language rejection reason |
 | Safety guard (contact leaks, unknown evidence, uncited prices) | Code, not a model | Deterministic, cannot be talked out of it |
+
+## Run the Agent Console (no account, no key)
+
+```
+npm run demo
+```
+
+Open http://localhost:3000. Replay mode plays recorded runs of the agent on sample listings and providers: the model's tool calls, what came back, the evidence ledger with trust levels (verified, stated, inferred), and the guard's verdict. Needs only Node 18+, no install step, no account.
+
+**What is simulated and what really works**
+
+| Piece | In replay mode | In live mode |
+|---|---|---|
+| Model that reads the request and writes the answer | Recorded run. Entries marked SIMULATED come from a rule-based stand-in, not an AI. | Real Muse Spark Open |
+| Tools, evidence ledger, private-field stripping, injection removal | Real code, same as live | Real code |
+| Guard (citations must match evidence, no made-up figures, no contact details) | Real code; the "Guard demo" example is scripted to show a wrong answer being caught | Real code |
+| Listings and providers | Sample data (`data/demo-*.json`), not live DealMatch inventory | Same |
+| Payments and contact release | Not part of this demo | Not part of this demo |
+
+**Live mode** (ask your own questions, English or Pidgin):
+
+```
+# PowerShell
+$env:LLM_PROVIDER = "baseten"; $env:BASETEN_API_KEY = "your key"; npm run console
+# macOS or Linux
+LLM_PROVIDER=baseten BASETEN_API_KEY=your-key npm run console
+```
+
+Re-record the examples from the real model with `npm run record` (same variables). `npm run record:sim` rebuilds the no-key version.
+
+## Tests and evaluation
+
+- `npm test`: unit tests plus 24 guard trap cases (replies that must be rejected, replies that must pass).
+- `npm run eval:mock`: the 60-case evaluation set run against the simulated stand-in. This checks the harness and guard, not a model.
+- `npm run eval -- --rows`: the same 60 cases against the real model (set the variables above). Writes `results/latest-<provider>.json` with every reply, the raw first draft, and why the guard fired.

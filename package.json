@@ -3,5 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "scripts": { "test": "node --test test/*.test.mjs", "eval": "node scripts/eval.mjs", "eval:mock": "node scripts/eval.mjs --mock", "first-call": "node scripts/first-call.mjs" }
+  "scripts": {
+    "test": "node --test test/*.test.mjs",
+    "eval": "node scripts/eval.mjs",
+    "eval:mock": "node scripts/eval.mjs --mock",
+    "first-call": "node scripts/first-call.mjs",
+    "console": "node src/console-server.js",
+    "demo": "node src/console-server.js --replay",
+    "record": "node scripts/record-replays.mjs",
+    "record:sim": "node scripts/record-replays.mjs --simulated"
+  }
 }

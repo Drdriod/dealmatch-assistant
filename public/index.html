@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DealMatch Assistant · Agent Console</title>
+<style>
+:root{
+  --bg:#f6f4ee; --card:#ffffff; --ink:#17201b; --muted:#5b665f; --line:#dcd6c8; --accent:#0f5c4d; --accent-ink:#ffffff;
+  --verified:#0b6b45; --verified-bg:#e1f3e8; --stated:#7a4f00; --stated-bg:#fbeecb; --inferred:#4a555e; --inferred-bg:#e6eaed;
+  --bad:#9b1c1c; --bad-bg:#fbe3e3; --info-bg:#eaf1f8; --info:#1f4f7a; --radius:12px;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#101512; --card:#18201c; --ink:#e8efe9; --muted:#9aa89f; --line:#2b3730; --accent:#3fb593; --accent-ink:#06130e;
+  --verified:#6fd7a5; --verified-bg:#12301f; --stated:#f0c35e; --stated-bg:#38290a; --inferred:#b3bfc7; --inferred-bg:#26302f;
+  --bad:#ff9a9a; --bad-bg:#3a1717; --info-bg:#14283a; --info:#8ec0ee;}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+header{padding:18px 16px 10px;max-width:1180px;margin:0 auto}
+h1{font-size:20px;margin:0 0 2px;letter-spacing:-.01em}
+.sub{color:var(--muted);font-size:13px;margin:0}
+.badge{display:inline-block;padding:2px 9px;border-radius:99px;font-size:12px;font-weight:600;vertical-align:middle;margin-left:6px}
+.badge.live{background:var(--verified-bg);color:var(--verified)} .badge.replay{background:var(--info-bg);color:var(--info)}
+.privacy{max-width:1180px;margin:8px auto 0;padding:0 16px}
+.privacy div{background:var(--info-bg);color:var(--info);border-radius:var(--radius);padding:8px 12px;font-size:13px}
+main{max-width:1180px;margin:12px auto 40px;padding:0 16px;display:grid;gap:16px;grid-template-columns:1fr}
+@media(min-width:920px){main{grid-template-columns:minmax(0,1.05fr) minmax(0,1fr)}}
+section{min-width:0;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:14px}
+h2{font-size:13px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:0 0 10px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+.group{width:100%;font-size:12px;color:var(--muted);margin-top:4px}
+.chip{border:1px solid var(--line);background:transparent;color:var(--ink);border-radius:99px;padding:5px 11px;font:inherit;font-size:13px;cursor:pointer}
+.chip:hover{border-color:var(--accent)} .chip:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.chip.scripted{border-style:dashed}
+#log{min-height:220px;max-height:58vh;overflow:auto;display:flex;flex-direction:column;gap:10px;padding:2px}
+.msg{max-width:92%;padding:9px 12px;border-radius:12px;white-space:pre-wrap;word-wrap:break-word}
+.msg.user{align-self:flex-end;background:var(--accent);color:var(--accent-ink)}
+.msg.bot{align-self:flex-start;background:var(--bg);border:1px solid var(--line)}
+.msg.note{align-self:center;color:var(--muted);font-size:13px;background:none;border:none;text-align:center}
+.tag{display:inline-block;font-size:11px;font-weight:700;border-radius:6px;padding:1px 7px;margin:0 6px 6px 0}
+.tag.bad{background:var(--bad-bg);color:var(--bad)} .tag.ok{background:var(--verified-bg);color:var(--verified)}
+.eref{border:0;background:var(--info-bg);color:var(--info);border-radius:6px;padding:0 5px;font:inherit;font-size:12px;font-weight:700;cursor:pointer}
+.first{margin-top:8px;font-size:13px;color:var(--muted)} .first pre{margin:4px 0 0;white-space:pre-wrap;font:inherit;background:var(--bad-bg);color:var(--bad);padding:8px;border-radius:8px}
+form{display:flex;gap:8px;margin-top:12px}
+input[type=text]{flex:1;min-width:0;padding:10px 12px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font:inherit}
+button.send{background:var(--accent);color:var(--accent-ink);border:0;border-radius:10px;padding:0 16px;font:inherit;font-weight:600;cursor:pointer}
+button:disabled{opacity:.5;cursor:default}
+.hint{font-size:12px;color:var(--muted);margin:6px 2px 0}
+.step{border-left:3px solid var(--line);padding:2px 0 2px 12px;margin:0 0 12px;animation:in .25s ease}
+@keyframes in{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){.step{animation:none}}
+.step.tool{border-color:var(--accent)} .step.guard-ok{border-color:var(--verified)} .step.guard-bad,.step.warn{border-color:var(--bad)}
+.step b{font-weight:650} .meta{color:var(--muted);font-size:12px}
+.code{word-break:break-word;overflow-wrap:anywhere;font:12px/1.45 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;background:var(--bg);border-radius:6px;padding:1px 5px}
+.results{margin:6px 0 0;padding:0;list-style:none;font-size:13px} .results li{padding:3px 0;border-top:1px dashed var(--line)}
+.pill{display:inline-block;border-radius:99px;padding:0 8px;font-size:11px;font-weight:700}
+.pill.verified{background:var(--verified-bg);color:var(--verified)} .pill.stated{background:var(--stated-bg);color:var(--stated)} .pill.inferred{background:var(--inferred-bg);color:var(--inferred)}
+details summary{cursor:pointer;color:var(--muted);font-size:12px} details p{margin:4px 0;font-size:12px;color:var(--muted);white-space:pre-wrap}
+#ledger{overflow-x:auto} table{width:100%;border-collapse:collapse;font-size:13px} th{font-size:11px;text-align:left;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;padding:4px 6px}
+td{padding:5px 6px;border-top:1px solid var(--line)} tr.hl td{background:var(--info-bg)}
+.empty{color:var(--muted);font-size:13px}
+footer{max-width:1180px;margin:0 auto 30px;padding:0 16px;color:var(--muted);font-size:12px}
+</style>
+</head>
+<body>
+<header>
+  <h1>DealMatch Assistant <span id="mode" class="badge replay">loading</span></h1>
+  <p class="sub">Find a place or a person in Nigeria, in English or Pidgin. Every fact carries evidence, and a guard in code checks every answer before you see it.</p>
+</header>
+<div class="privacy"><div><b>Private by design.</b> Phone numbers and emails are removed before any listing reaches the model, so it cannot reveal what it never receives. Contact is released only after protected payment.</div></div>
+
+<main>
+  <section aria-label="Conversation">
+    <h2>Conversation</h2>
+    <div id="chips" class="chips"></div>
+    <div id="log" role="log" aria-live="polite"><div class="msg note">Pick an example above to watch the agent work.</div></div>
+    <form id="form" autocomplete="off">
+      <input id="input" type="text" maxlength="500" placeholder="Ask for a flat or a service, in English or Pidgin" aria-label="Your message">
+      <button class="send" id="sendBtn" type="submit">Send</button>
+    </form>
+    <p class="hint" id="hint"></p>
+  </section>
+
+  <section aria-label="How the agent decided">
+    <h2>How the agent decided</h2>
+    <div id="trace"><p class="empty">The trace appears here: each tool call, what came back, and the guard's verdict.</p></div>
+    <h2 style="margin-top:18px">Evidence ledger</h2>
+    <div id="ledger"><p class="empty">Every fact the assistant may state is recorded here with its source and trust level.</p></div>
+  </section>
+</main>
+<footer id="footer"></footer>
+
+<script>
+const $ = (s) => document.querySelector(s);
+const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const fmt = (v) => (typeof v === 'number' ? v.toLocaleString('en-US') : esc(v));
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+let cfg = null, busy = false;
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const pause = (ms) => (reduce ? Promise.resolve() : sleep(ms));
+
+function rich(text) {
+  return esc(text).replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').replace(/\[(E\d+)\]/g, '<button class="eref" data-e="$1" type="button">$1</button>');
+}
+function addMsg(kind, html) {
+  const d = document.createElement('div'); d.className = `msg ${kind}`; d.innerHTML = html;
+  $('#log').appendChild(d); $('#log').scrollTop = 1e9; return d;
+}
+function step(cls, html) {
+  const d = document.createElement('div'); d.className = `step ${cls}`; d.innerHTML = html; $('#trace').appendChild(d); return d;
+}
+const pill = (t) => `<span class="pill ${esc(t)}">${esc(t)}</span>`;
+
+function describeItem(x) {
+  if (x.error) return `<li>${esc(x.error)}</li>`;
+  const name = x.title ?? `${x.name} (${x.service})`;
+  return `<li>${esc(name)} · ${esc(x.area ?? '')} ${x.trust ? pill(x.trust) : ''}</li>`;
+}
+
+async function renderTrace(trace) {
+  $('#trace').innerHTML = '';
+  for (const t of trace) {
+    if (t.step !== undefined) {
+      const calls = t.toolCalls.length ? `decided to call <span class="code">${t.toolCalls.map(esc).join(', ')}</span>` : 'wrote an answer';
+      const think = t.reasoning ? `<details><summary>Model reasoning (excerpt)</summary><p>${esc(t.reasoning)}</p></details>` : '';
+      step('', `<b>Step ${t.step + 1}.</b> The model ${calls} <span class="meta">${t.ms > 5 ? `· ${t.ms} ms` : ''}${t.usage?.total_tokens ? ` · ${t.usage.total_tokens} tokens` : ''}</span>${think}`);
+    } else if (t.injection_flagged) {
+      step('warn', `<b>Attack blocked.</b> Text inside a listing tried to give the model instructions. It was removed before the model saw it <span class="meta">(from ${esc(t.tool)})</span>.`);
+    } else if (t.calls) {
+      for (const c of t.calls) {
+        const list = Array.isArray(c.result) ? c.result : [c.result];
+        step('tool', `<b>Tool</b> <span class="code">${esc(c.name)}(${esc(JSON.stringify(c.args))})</span><div class="meta">${Array.isArray(c.result) ? `${c.result.length} result(s)` : 'result'} · no phone or email in this output</div>` +
+          (list.length ? `<ul class="results">${list.map(describeItem).join('')}</ul>` : '<p class="meta">Nothing matched.</p>'));
+      }
+    } else if (t.guard) {
+      const g = t.guard;
+      if (g.ok) step('guard-ok', `<b>Guard passed.</b> <span class="meta">Every citation exists and every figure matches its evidence.${t.attempt ? ' (second attempt)' : ''}</span>`);
+      else step('guard-bad', `<b>Guard rejected the answer.</b> <span class="meta">${g.reasons.map(esc).join(', ')}</span>${(g.details ?? []).length ? `<ul class="results">${g.details.map((d) => `<li>${esc(d)}</li>`).join('')}</ul>` : ''}`);
+    } else if (t.repair) {
+      step('', `<b>Sent back.</b> <span class="meta">The model is told exactly what was wrong and gets one chance to rewrite.</span>`);
+    }
+    await pause(380);
+  }
+}
+
+function renderLedger(ledger) {
+  if (!ledger.length) { $('#ledger').innerHTML = '<p class="empty">No facts were recorded: nothing was found, so nothing may be claimed.</p>'; return; }
+  $('#ledger').innerHTML = `<table><thead><tr><th>Id</th><th>Item</th><th>Fact</th><th>Value</th><th>Trust</th></tr></thead><tbody>` +
+    ledger.map((e) => `<tr id="row-${esc(e.id)}"><td><b>${esc(e.id)}</b></td><td>${esc(e.listingId)}</td><td>${esc(e.field)}</td><td>${fmt(e.value)}</td><td>${pill(e.tier)}</td></tr>`).join('') + '</tbody></table>';
+}
+
+async function play(data) {
+  const r = data.result;
+  const note = data.scripted ? 'Scripted example, not a live model: shows what the guard does when an answer is wrong.'
+    : data.source === 'simulated' ? 'SIMULATED stand-in: a rule-based demo so this runs with no account. Real model runs are recorded with npm run record.'
+    : data.mode === 'replay' ? `Recorded run of ${esc(data.source)}.` : `Live: ${esc(data.source)}.`;
+  const thinking = addMsg('note', 'Working…');
+  await renderTrace(r.trace);
+  thinking.remove();
+  const tags = (r.blocked ? '<span class="tag bad">Blocked by the guard</span>' : '') + (r.repaired ? '<span class="tag ok">Fixed after guard feedback</span>' : '');
+  const bot = addMsg('bot', `${tags}${rich(r.reply)}`);
+  if ((r.repaired || r.blocked) && r.rawReply) {
+    const f = document.createElement('div'); f.className = 'first';
+    f.innerHTML = `What the model first wrote (rejected):<pre>${rich(r.rawReply).replace(/<button[^>]*>(E\d+)<\/button>/g, '[$1]')}</pre>`;
+    bot.appendChild(f);
+  }
+  addMsg('note', note);
+  renderLedger(r.ledger);
+}
+
+async function ask(message, presetId) {
+  if (busy || !message.trim()) return;
+  busy = true; $('#sendBtn').disabled = true;
+  addMsg('user', esc(message));
+  try {
+    const res = await fetch('/api/chat', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ message, presetId }) });
+    const data = await res.json();
+    if (data.error) addMsg('note', esc(data.message ?? data.error)); else await play(data);
+  } catch { addMsg('note', 'Could not reach the server.'); }
+  busy = false; $('#sendBtn').disabled = false;
+}
+
+$('#form').addEventListener('submit', (e) => { e.preventDefault(); const v = $('#input').value; $('#input').value = ''; ask(v); });
+$('#log').addEventListener('click', (e) => {
+  const b = e.target.closest('.eref'); if (!b) return;
+  document.querySelectorAll('tr.hl').forEach((r) => r.classList.remove('hl'));
+  const row = document.getElementById(`row-${b.dataset.e}`); if (row) { row.classList.add('hl'); row.scrollIntoView({ block: 'nearest', behavior: reduce ? 'auto' : 'smooth' }); }
+});
+
+(async function init() {
+  cfg = await (await fetch('/api/config')).json();
+  const m = $('#mode'); m.textContent = cfg.mode === 'live' ? `Live · ${cfg.model}` : 'Replay · no account needed'; m.className = `badge ${cfg.mode}`;
+  const groups = {}; cfg.presets.forEach((p) => (groups[p.group] ??= []).push(p));
+  $('#chips').innerHTML = Object.entries(groups).map(([g, ps]) => `<span class="group">${esc(g)}</span>` + ps.map((p) => `<button class="chip${p.scripted ? ' scripted' : ''}" data-id="${esc(p.id)}" data-q="${esc(p.request)}" type="button">${esc(p.label)}</button>`).join('')).join('');
+  $('#chips').addEventListener('click', (e) => { const c = e.target.closest('.chip'); if (c) ask(c.dataset.q, c.dataset.id); });
+  $('#hint').textContent = cfg.mode === 'live' ? 'Type your own question, or pick an example.' : 'Replay mode plays recorded runs. To ask your own questions, set a model key (see the README).';
+  $('#footer').textContent = cfg.mode === 'replay' ? `Demo data: sample listings and providers, not live DealMatch inventory. Replay recorded ${new Date(cfg.recordedAt).toLocaleDateString()}.` : 'Demo data: sample listings and providers, not live DealMatch inventory.';
+})();
+</script>
+</body>
+</html>
