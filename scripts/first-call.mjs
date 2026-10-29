@@ -31,7 +31,7 @@ async function call(label, body) {
   if (msg.tool_calls?.length) console.log('tool_calls:', JSON.stringify(msg.tool_calls.map((c) => ({ name: c.function?.name, args: c.function?.arguments }))));
 }
 
-await call('1 hello', { messages: [{ role: 'user', content: 'Say hello in one short sentence.' }], max_tokens: 200 });
+await call('1 hello', { messages: [{ role: 'user', content: 'Say hello in one short sentence.' }], max_tokens: 3000 });
 await call('2 tool call', {
   messages: [
     { role: 'system', content: 'You help people find places and people on DealMatch. Use the tools.' },
@@ -39,9 +39,9 @@ await call('2 tool call', {
   ],
   tools: toolSchemas,
   tool_choice: 'auto',
-  max_tokens: 800,
+  max_tokens: 3000,
 });
 await call('3 pidgin', {
   messages: [{ role: 'user', content: 'Abeg, I dey find person wey fit fix my generator for Ikeja. How I go take do am for here?' }],
-  max_tokens: 600,
+  max_tokens: 3000,
 });

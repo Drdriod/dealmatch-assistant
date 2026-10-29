@@ -14,7 +14,7 @@ export async function runAgent({ request, listings, providers = [], model = muse
   const messages = [{ role: 'system', content: SYSTEM }, { role: 'user', content: request }];
   for (let step = 0; step < maxSteps; step++) {
     const r = await model({ messages, tools: toolSchemas });
-    trace.push({ step, toolCalls: r.toolCalls.map((c) => c.name), ms: r.ms, usage: r.usage });
+    trace.push({ step, toolCalls: r.toolCalls.map((c) => c.name), ms: r.ms, usage: r.usage, reasoning: r.reasoning ?? '' });
     if (!r.toolCalls.length) {
       const check = checkReply(r.content, ledger);
       trace.push({ guard: check });
