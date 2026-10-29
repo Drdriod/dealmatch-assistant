@@ -67,7 +67,7 @@ test('both doors in one request: place and person, parallel calls', async () => 
     ? { content: '', toolCalls: [
         { id: 'a', name: 'search_listings', args: { area: 'Yaba', bedrooms: 2 } },
         { id: 'b', name: 'search_providers', args: { service: 'cleaner', area: 'Yaba' } }], ms: 1 }
-    : { content: 'A 2-bed in Yaba is NGN 2,800,000 a year [E1]; a cleaner there starts at NGN 6,000, inferred [E4].', toolCalls: [], ms: 1 });
+    : { content: 'A 2-bed in Yaba is NGN 2,800,000 a year [E1]; a cleaner there starts at NGN 6,000 [E8], inferred.', toolCalls: [], ms: 1 });
   const r = await runAgent({ request: 'flat in Yaba and someone to clean it', listings, providers, model });
   assert.equal(r.blocked, false);
   assert.deepEqual(r.trace[0].toolCalls, ['search_listings', 'search_providers']);

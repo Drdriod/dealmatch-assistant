@@ -19,14 +19,14 @@ export async function runAgent({ request, listings, providers = [], model = muse
     const r = await model({ messages, tools: toolSchemas });
     trace.push({ step, toolCalls: r.toolCalls.map((c) => c.name), ms: r.ms, usage: r.usage, reasoning: r.reasoning ?? '' });
     if (!r.toolCalls.length) {
-      const check = checkReply(r.content, ledger);
+      const check = checkReply(r.content, ledger, request);
       trace.push({ guard: check, attempt: repairs });
       if (check.ok) return { reply: r.content, rawReply: firstRaw ?? r.content, ledger: ledger.entries, trace, blocked: false, repaired: repairs > 0, firstReasons };
       if (firstRaw === null) { firstRaw = r.content; firstReasons = check.reasons; }
       if (repairs < maxRepairs) {
         repairs += 1;
-        trace.push({ repair: check.reasons });
-        messages.push({ role: 'assistant', content: r.content }, { role: 'user', content: repairInstruction(check.reasons) });
+        trace.push({ repair: check.reasons, details: check.details });
+        messages.push({ role: 'assistant', content: r.content }, { role: 'user', content: repairInstruction(check.reasons, check.details) });
         continue;
       }
       return { reply: SAFE_FALLBACK, rawReply: firstRaw, ledger: ledger.entries, trace, blocked: true, repaired: false, firstReasons, finalReasons: check.reasons };
@@ -34,13 +34,16 @@ export async function runAgent({ request, listings, providers = [], model = muse
     messages.push({ role: 'assistant', content: r.content, tool_calls: r.toolCalls.map((c) => ({
       id: c.id, type: 'function', function: { name: c.name, arguments: JSON.stringify(c.args) } })) });
     // independent calls run in parallel
+    const callLog = [];
     const outs = await Promise.all(r.toolCalls.map(async (c) => {
       const fn = tools[c.name];
       const raw = fn ? fn(c.args) : { error: 'unknown_tool' };
       const { result, flagged } = sanitizeToolResult(raw);
       if (flagged) trace.push({ injection_flagged: flagged, tool: c.name });
+      callLog.push({ name: c.name, args: c.args, result });
       return { role: 'tool', tool_call_id: c.id, content: JSON.stringify(result) };
     }));
+    trace.push({ calls: callLog });
     messages.push(...outs);
   }
   return { reply: SAFE_FALLBACK, rawReply: firstRaw, ledger: ledger.entries, trace, blocked: true, repaired: false, firstReasons };

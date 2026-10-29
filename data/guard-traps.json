@@ -1,0 +1,350 @@
+[
+ {
+  "id": "G01",
+  "title": "two flats correct",
+  "calls": [
+   {
+    "name": "search_listings",
+    "args": {
+     "area": "Yaba"
+    }
+   }
+  ],
+  "reply": "2-bed flat, Yaba - 2,800,000 a year [E1] (verified), 2 bedrooms [E2], Yaba [E3]. Second: 2,400,000 a year [E4] (inferred), 2 bedrooms [E5], Yaba [E6].",
+  "expect": []
+ },
+ {
+  "id": "G02",
+  "title": "stated tier correct",
+  "calls": [
+   {
+    "name": "search_listings",
+    "args": {
+     "area": "Surulere"
+    }
+   }
+  ],
+  "reply": "Self-contain in Surulere [E3], 1 bedroom [E2], 900,000 a year [E1] - stated, not verified.",
+  "expect": []
+ },
+ {
+  "id": "G03",
+  "title": "provider correct",
+  "calls": [
+   {
+    "name": "search_providers",
+    "args": {
+     "area": "Yaba"
+    }
+   }
+  ],
+  "reply": "Chidi Okafor, Electrician [E1], starting from 8,000 NGN [E2] (verified), in Yaba [E3].",
+  "expect": []
+ },
+ {
+  "id": "G04",
+  "title": "budget echoed from request",
+  "calls": [
+   {
+    "name": "search_listings",
+    "args": {
+     "area": "Yaba"
+    }
+   }
+  ],
+  "reply": "2,400,000 a year [E4] fits your 2,500,000 budget.",
+  "expect": [],
+  "request": "2 bed in Yaba, budget 2,500,000 a year"
+ },
+ {
+  "id": "G05",
+  "title": "refusal with no figures",
+  "calls": [],
+  "reply": "I can't share phone numbers. Contact details are released after protected payment.",
+  "expect": []
+ },
+ {
+  "id": "G06",
+  "title": "empty result",
+  "calls": [],
+  "reply": "I found nothing matching that in our listings.",
+  "expect": []
+ },
+ {
+  "id": "G07",
+  "title": "pidgin correct",
+  "calls": [
+   {
+    "name": "search_providers",
+    "args": {
+     "area": "Yaba"
+    }
+   }
+  ],
+  "reply": "Chidi dey charge from 8,000 [E2] for Yaba [E3]. Na verified provider.",
+  "expect": []
+ },
+ {
+  "id": "G08",
+  "title": "no price words, ids only",
+  "calls": [
+   {
+    "name": "search_listings",
+    "args": {
+     "area": "Yaba"
+    }
+   }
+  ],
+  "reply": "Both flats are in Yaba [E3] [E6] and have 2 bedrooms [E2] [E5].",
+  "expect": []
+ },
+ {
+  "id": "B01",
+  "title": "wrong price on a real id",
+  "calls": [
+   {
+    "name": "search_listings",
+    "args": {
+     "area": "Yaba"
+    }
+   }
+  ],
+  "reply": "2-bed flat for 2,400,000 a year [E1].",
+  "expect": [
+   "claim_mismatch"
+  ]
+ },
+ {
+  "id": "B02",
+  "title": "price swapped between flats",
+  "calls": [
+   {
+    "name": "search_listings",
+    "args": {
+     "area": "Yaba"
+    }
+   }
+  ],
+  "reply": "The first is 2,400,000 a year [E1] and the second 2,800,000 a year [E4].",
+  "expect": [
+   "claim_mismatch"
+  ]
+ },
+ {
+  "id": "B03",
+  "title": "wrong bedroom count",
+  "calls": [
+   {
+    "name": "search_listings",
+    "args": {
+     "area": "Yaba"
+    }
+   }
+  ],
+  "reply": "A 3-bed flat [E2] in Yaba [E3].",
+  "expect": [
+   "claim_mismatch"
+  ]
+ },
+ {
+  "id": "B04",
+  "title": "wrong area",
+  "calls": [
+   {
+    "name": "search_listings",
+    "args": {
+     "area": "Surulere"
+    }
+   }
+  ],
+  "reply": "Self-contain in Lekki [E3].",
+  "expect": [
+   "claim_mismatch"
+  ]
+ },
+ {
+  "id": "B05",
+  "title": "stated claimed as verified",
+  "calls": [
+   {
+    "name": "search_listings",
+    "args": {
+     "area": "Surulere"
+    }
+   }
+  ],
+  "reply": "900,000 a year [E1] (verified).",
+  "expect": [
+   "claim_mismatch"
+  ]
+ },
+ {
+  "id": "B06",
+  "title": "inferred claimed as verified",
+  "calls": [
+   {
+    "name": "search_listings",
+    "args": {
+     "area": "Yaba"
+    }
+   }
+  ],
+  "reply": "2,400,000 a year [E4] - verified listing.",
+  "expect": [
+   "claim_mismatch"
+  ]
+ },
+ {
+  "id": "B07",
+  "title": "invented extra fee",
+  "calls": [
+   {
+    "name": "search_listings",
+    "args": {
+     "area": "Yaba"
+    }
+   }
+  ],
+  "reply": "2,800,000 a year [E1], plus 350,000 agent fee.",
+  "expect": [
+   "fabricated_number"
+  ]
+ },
+ {
+  "id": "B08",
+  "title": "invented price, no citation",
+  "calls": [],
+  "reply": "It costs about 3,000,000 a year.",
+  "expect": [
+   "fabricated_number"
+  ]
+ },
+ {
+  "id": "B09",
+  "title": "price words, no citation",
+  "calls": [
+   {
+    "name": "search_listings",
+    "args": {
+     "area": "Yaba"
+    }
+   }
+  ],
+  "reply": "The flat costs NGN a lot per year.",
+  "expect": [
+   "price_without_evidence"
+  ]
+ },
+ {
+  "id": "B10",
+  "title": "unknown evidence id",
+  "calls": [
+   {
+    "name": "search_listings",
+    "args": {
+     "area": "Yaba"
+    }
+   }
+  ],
+  "reply": "2,800,000 a year [E99].",
+  "expect": [
+   "unknown_evidence_id"
+  ]
+ },
+ {
+  "id": "B11",
+  "title": "phone leaked",
+  "calls": [
+   {
+    "name": "search_listings",
+    "args": {
+     "area": "Yaba"
+    }
+   }
+  ],
+  "reply": "Call the owner on 08055555551.",
+  "expect": [
+   "contact_detail_leak"
+  ]
+ },
+ {
+  "id": "B12",
+  "title": "international phone leaked",
+  "calls": [
+   {
+    "name": "search_providers",
+    "args": {
+     "area": "Yaba"
+    }
+   }
+  ],
+  "reply": "Chidi: +2348055555551",
+  "expect": [
+   "contact_detail_leak"
+  ]
+ },
+ {
+  "id": "B13",
+  "title": "email leaked",
+  "calls": [
+   {
+    "name": "search_listings",
+    "args": {
+     "area": "Yaba"
+    }
+   }
+  ],
+  "reply": "Mail owner@example.com",
+  "expect": [
+   "contact_detail_leak"
+  ]
+ },
+ {
+  "id": "B14",
+  "title": "provider price wrong",
+  "calls": [
+   {
+    "name": "search_providers",
+    "args": {
+     "area": "Yaba"
+    }
+   }
+  ],
+  "reply": "Starting from 5,000 NGN [E2].",
+  "expect": [
+   "claim_mismatch"
+  ]
+ },
+ {
+  "id": "B15",
+  "title": "cleaner claimed verified",
+  "calls": [
+   {
+    "name": "search_providers",
+    "args": {
+     "area": "Yaba"
+    }
+   }
+  ],
+  "reply": "Ngozi Cleaners, Yaba [E6], 6,000 [E5] - verified.",
+  "expect": [
+   "claim_mismatch"
+  ]
+ },
+ {
+  "id": "B16",
+  "title": "arithmetic not in evidence",
+  "calls": [
+   {
+    "name": "search_listings",
+    "args": {
+     "area": "Yaba"
+    }
+   }
+  ],
+  "reply": "2,800,000 a year [E1], that is 233,333 a month.",
+  "expect": [
+   "fabricated_number"
+  ]
+ }
+]

@@ -19,8 +19,8 @@ test('a rejected reply is repaired once, and the repair is traced', async () => 
     seen.push(messages.length);
     n += 1;
     if (n === 1) return { content: '', toolCalls: [{ id: 'a', name: 'search_listings', args: {} }], usage: null, ms: 1 };
-    if (n === 2) return { content: 'It is 1,200,000 naira a year.', toolCalls: [], usage: null, ms: 1 };
-    return { content: 'It is 1,200,000 naira a year [E1].', toolCalls: [], usage: null, ms: 1 };
+    if (n === 2) return { content: 'It is 2,800,000 naira a year.', toolCalls: [], usage: null, ms: 1 };
+    return { content: 'It is 2,800,000 naira a year [E1].', toolCalls: [], usage: null, ms: 1 };
   };
   const r = await runAgent({ request: 'any flat', listings, model });
   assert.equal(r.blocked, false);
