@@ -1,11 +1,11 @@
 // Tools the model may call. Data comes from a provider so the same tools run on demo data
 // now and on the DealMatch backend later.
 export const toolSchemas = [
-  { type: 'function', function: { name: 'search_listings', description: 'Search verified home listings.',
+  { type: 'function', function: { name: 'search_listings', description: 'Search verified home listings. `city` is the city (for example Lagos or Uyo). `area` is the neighbourhood inside a city (for example Yaba, Lekki, Surulere, Ewet Housing, Aka Road). Never put a neighbourhood in `city`.',
     parameters: { type: 'object', properties: {
       city: { type: 'string' }, area: { type: 'string' }, bedrooms: { type: 'integer' },
       max_price_ngn_year: { type: 'integer' } } } } },
-  { type: 'function', function: { name: 'search_providers', description: 'Search service providers (artisans, tutors, cleaners and other people). `service` is one specific trade such as electrician, plumber, cleaner or tutor. For broad words like artisan, handyman or someone, leave `service` out and search by area.',
+  { type: 'function', function: { name: 'search_providers', description: 'Search service providers (artisans, tutors, cleaners and other people). `service` is one specific trade such as electrician, plumber, cleaner or tutor. For broad words like artisan, handyman or someone, leave `service` out and search by area. `city` is the city (Lagos, Uyo); `area` is the neighbourhood (Yaba, Lekki, Ewet Housing). Never put a neighbourhood in `city`.',
     parameters: { type: 'object', properties: {
       service: { type: 'string' }, city: { type: 'string' }, area: { type: 'string' },
       max_price_ngn: { type: 'integer' } } } } },

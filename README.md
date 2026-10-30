@@ -93,6 +93,7 @@ Every run below is real model output on the sample data. The model is not determ
 | 2 (60 cases) | Strict guard: citations must match evidence | 57/60 | 59/60 | 60/60 | 0 | 60/60 | 55/60 | 5 |
 | 3 (60 cases) | Blocks invented verification claims; prompt fixes | 59/60 | 57/60 | 58/60 | 0 | 60/60 | 59/60 | 1 |
 | 4 (60 cases) | Tool description for broad searches; vague-request prompt | 60/60 | 60/60 | 60/60 | 0 | 60/60 | 60/60 | 0 |
+| 5 (69 cases) | Added Uyo listings, providers and 9 Uyo cases | 69/69 | 68/69 | 69/69 | 0 | 69/69 | 69/69 | 0 |
 
 What the runs showed, honestly:
 
@@ -105,4 +106,4 @@ What the runs showed, honestly:
 
 ## Sample data covers Lagos and Uyo
 
-The sample listings and providers cover Lagos (Yaba, Surulere, Lekki) and Uyo, Akwa Ibom (Ewet Housing, Aka Road, Osongama, Ikot Ekpene Road). The Uyo cases (E61-E69) were added after run 4; run the eval again to get current numbers (`npm run eval -- --rows`).
+The sample listings and providers cover Lagos (Yaba, Surulere, Lekki) and Uyo, Akwa Ibom (Ewet Housing, Aka Road, Osongama, Ikot Ekpene Road). The Uyo cases (E61-E69) are included in run 5. In that run E22 ("3 bed in Lekki under 7 million") found nothing: the model put the neighbourhood Lekki in the `city` field. The tool description now spells out city versus neighbourhood; the next run will show whether that fixed it.
