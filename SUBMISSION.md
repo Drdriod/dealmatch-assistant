@@ -12,9 +12,16 @@ Submit at: https://cerebralvalley.ai/e/meta-ai-developer-hackathon/hackathon/sub
 - Sandbox or mock data is fine if judges can run it WITHOUT connecting their own accounts, and README and video label what is simulated and what really works.
 - Live URL not required. Judges need the public repo to run from its setup instructions, plus the 3-minute video. A hosted demo is optional.
 
+## Most Viral prize (confirmed by organizers, Oct 30)
+- Counts ONLY the X post that you link in your submission. Facebook (or any other platform) does not count.
+- Ranked by total likes, reposts and comments, counted through November 8 end of day. No hashtag or tag required. No other metric (views, reactions, shares) is measured.
+- So: post on X early (as soon as the video is ready), link that exact post in the submission, then drive people to it. Use Facebook, WhatsApp and Discord only to send people to the X post.
+- Genuine engagement only. No bought or fake engagement.
+
 ## So we must have
 - [ ] No-account demo mode (mock model replay) that runs with `npm install && npm run demo`, clearly labeled SIMULATED, and a live mode with their own key.
 - [ ] README table: what is simulated vs what truly works.
 - [ ] README section: where Muse Spark Open is used (done).
 - [ ] 3-minute video, opening line about pre-existing vs built this week.
-- [ ] Optional: hosted demo, X post after submitting.
+- [ ] X post with the video (native upload) posted before submitting, and its link pasted into the submission.
+- [ ] Optional: hosted demo.
