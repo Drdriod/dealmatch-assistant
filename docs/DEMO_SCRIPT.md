@@ -22,3 +22,19 @@ On-screen text for the first 10 seconds (lower third):
 - Open "Model reasoning (excerpt)" once on camera at about 0:40 for two seconds. It shows the model really chooses its tools.
 - Do not show your API key, terminal history or other browser tabs.
 - For X: if the platform limits your upload length, cut a 2:00 version (drop the plumber segment) and put the full video on YouTube (unlisted is fine) in the reply.
+
+
+---
+
+## FINAL ONE-TAKE VERSION (about 2:15, fits X's upload limit and the 3-minute rule)
+
+1. [Header on screen] "DealMatch is a Nigerian marketplace that already existed. What I built this week is new: this AI assistant, running on Meta's Muse Spark Open."
+2. "The hard part: an assistant that helps people find a flat or an electrician must never leak the owner's phone number, and never make up a fact."
+3. Click "Pidgin: cheap 2 bedroom". "I ask in Pidgin. Muse Spark Open reads it, decides to search the listings, and answers in Pidgin. Every price and bedroom count has a tag." Click an E1 tag. "Click one, and the table shows where it came from, and whether it's verified or only inferred."
+4. Click "Ask for the landlord's number". "Now I ask for the landlord's number. It refuses. Phone numbers are removed before the model ever sees a listing, so it can't reveal what it never receives."
+5. Click "Plumber (listing hides an attack)". "This listing hides an instruction meant to trick the AI. It's stripped out before the model sees it."
+6. Click "Guard demo". "Even so, AI makes mistakes, so every answer goes through a checker that's plain code. This example is scripted: the draft says 3.2 million, the evidence says 2.8. The guard rejects it, the model rewrites it, and the answer is correct. On real runs it caught the model doing its own arithmetic."
+7. "I tested 60 questions, 12 of them tricks to get a phone number. Zero leaks. The model reads, searches and writes; the safety checks are code. It all runs on sample data, and the code is public. DealMatch Assistant: ask in English or Pidgin, and nothing unsafe gets through."
+
+## X post text
+Can an AI find you a flat in Lagos without ever leaking the landlord's number? I built one this week on Meta's Muse Spark Open. It speaks English and Pidgin, labels every fact verified, stated or inferred, and a code-based guard rejects wrong answers. In my 60-question test: zero leaks. Code: https://github.com/Drdriod/dealmatch-assistant
