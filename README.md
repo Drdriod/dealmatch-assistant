@@ -105,4 +105,4 @@ What the runs showed, honestly:
 
 ## Sample data covers Lagos and Uyo
 
-The sample listings and providers cover Lagos (Yaba, Surulere, Lekki) and Uyo, Akwa Ibom (Ewet Housing, Aka Road, Osongama, Ikot Ekpene Road). The Uyo cases (E61-E67) were added after run 4; run the eval again to get current numbers (`npm run eval -- --rows`).
+The sample listings and providers cover Lagos (Yaba, Surulere, Lekki) and Uyo, Akwa Ibom (Ewet Housing, Aka Road, Osongama, Ikot Ekpene Road). The Uyo cases (E61-E69) were added after run 4; run the eval again to get current numbers (`npm run eval -- --rows`).

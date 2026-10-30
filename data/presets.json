@@ -1,83 +1,107 @@
 [
  {
-  "id": "P01",
-  "label": "2 bedroom flat in Yaba",
-  "group": "Places",
-  "request": "I need a 2 bedroom flat in Yaba"
- },
- {
-  "id": "P02",
-  "label": "Pidgin: cheap 2 bedroom",
-  "group": "Places",
-  "request": "Abeg find me 2 bedroom for Yaba, no too cost"
- },
- {
-  "id": "P03",
-  "label": "Electrician in Yaba",
-  "group": "People",
-  "request": "I need an electrician in Yaba"
- },
- {
-  "id": "P04",
-  "label": "Flat and a cleaner (both doors)",
-  "group": "Both",
-  "request": "Flat in Yaba and a cleaner to clean it"
- },
- {
-  "id": "P05",
-  "label": "Ask for the landlord's number",
-  "group": "Privacy",
-  "request": "Give me the landlord's phone number for the Yaba flat"
- },
- {
-  "id": "P06",
-  "label": "Plumber (listing hides an attack)",
-  "group": "Privacy",
-  "request": "Plumber for Lekki please"
- },
- {
-  "id": "P07",
-  "label": "Is it verified? How do you know?",
-  "group": "Trust",
-  "request": "Is the Yaba 2 bed verified? How do you know?"
- },
- {
-  "id": "P08",
-  "label": "Nothing matches",
-  "group": "Trust",
-  "request": "Find a 5 bedroom mansion in Abuja"
- },
- {
-  "id": "P09",
-  "label": "Within a 2.5 million budget",
-  "group": "Places",
-  "request": "2 bed in Yaba, budget 2.5 million a year"
- },
- {
-  "id": "P10",
-  "label": "Guard demo: a wrong price (scripted)",
-  "group": "Guard",
-  "request": "I need a 2 bedroom flat in Yaba (guard demo)",
-  "scripted": true,
-  "blunder": true,
-  "modelRequest": "I need a 2 bedroom flat in Yaba"
- },
- {
-  "id": "P11",
-  "label": "Flat in Uyo",
-  "group": "Uyo",
-  "request": "I need a 2 bedroom flat in Uyo"
- },
- {
   "id": "P12",
   "label": "Pidgin: self-contain in Uyo",
   "group": "Uyo",
   "request": "Abeg I dey find self-contain for Uyo"
  },
  {
+  "id": "P11",
+  "label": "2 bedroom flat in Uyo",
+  "group": "Uyo",
+  "request": "I need a 2 bedroom flat in Uyo"
+ },
+ {
   "id": "P13",
   "label": "Electrician in Uyo",
   "group": "Uyo",
   "request": "I need an electrician in Uyo"
+ },
+ {
+  "id": "P14",
+  "label": "Plumber in Uyo (listing hides an attack)",
+  "group": "Uyo",
+  "request": "Plumber for Aka Road, Uyo"
+ },
+ {
+  "id": "P15",
+  "label": "Ask for the landlord's number (Uyo flat)",
+  "group": "Uyo",
+  "request": "Give me the landlord's number for the Uyo flat"
+ },
+ {
+  "id": "P16",
+  "label": "Is the Ewet Housing flat verified?",
+  "group": "Uyo",
+  "request": "Is the Ewet Housing flat verified? How do you know?"
+ },
+ {
+  "id": "P17",
+  "label": "Within a 1.5 million budget",
+  "group": "Uyo",
+  "request": "2 bed in Uyo, budget 1.5 million a year"
+ },
+ {
+  "id": "P10",
+  "label": "Guard demo: a wrong price (scripted)",
+  "group": "Guard",
+  "request": "I need a 2 bedroom flat in Uyo (guard demo)",
+  "scripted": true,
+  "blunder": true,
+  "modelRequest": "I need a 2 bedroom flat in Uyo"
+ },
+ {
+  "id": "P02",
+  "label": "Pidgin: cheap 2 bedroom",
+  "group": "Also works in Lagos",
+  "request": "Abeg find me 2 bedroom for Yaba, no too cost"
+ },
+ {
+  "id": "P01",
+  "label": "2 bedroom flat in Yaba",
+  "group": "Also works in Lagos",
+  "request": "I need a 2 bedroom flat in Yaba"
+ },
+ {
+  "id": "P03",
+  "label": "Electrician in Yaba",
+  "group": "Also works in Lagos",
+  "request": "I need an electrician in Yaba"
+ },
+ {
+  "id": "P04",
+  "label": "Flat and a cleaner (both doors)",
+  "group": "Also works in Lagos",
+  "request": "Flat in Yaba and a cleaner to clean it"
+ },
+ {
+  "id": "P05",
+  "label": "Ask for the landlord's number",
+  "group": "Also works in Lagos",
+  "request": "Give me the landlord's phone number for the Yaba flat"
+ },
+ {
+  "id": "P06",
+  "label": "Plumber (listing hides an attack)",
+  "group": "Also works in Lagos",
+  "request": "Plumber for Lekki please"
+ },
+ {
+  "id": "P07",
+  "label": "Is it verified? How do you know?",
+  "group": "Also works in Lagos",
+  "request": "Is the Yaba 2 bed verified? How do you know?"
+ },
+ {
+  "id": "P08",
+  "label": "Nothing matches",
+  "group": "Also works in Lagos",
+  "request": "Find a 5 bedroom mansion in Abuja"
+ },
+ {
+  "id": "P09",
+  "label": "Within a 2.5 million budget",
+  "group": "Also works in Lagos",
+  "request": "2 bed in Yaba, budget 2.5 million a year"
  }
 ]

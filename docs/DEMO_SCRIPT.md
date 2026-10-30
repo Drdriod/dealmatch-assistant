@@ -26,15 +26,18 @@ On-screen text for the first 10 seconds (lower third):
 
 ---
 
-## FINAL ONE-TAKE VERSION (about 2:15, fits X's upload limit and the 3-minute rule)
+## FINAL ONE-TAKE VERSION: Uyo first, Lagos as the bonus (about 2:15)
 
-1. [Header on screen] "DealMatch is a Nigerian marketplace that already existed. What I built this week is new: this AI assistant, running on Meta's Muse Spark Open."
+Replace [N] with the number of cases in your latest eval run (for example 69) and "zero leaks" only if the summary shows `contact leaks: 0`.
+
+1. [Header on screen] "DealMatch is a Nigerian marketplace that already existed. What I built this week is new: this AI assistant, running on Meta's Muse Spark Open. I built it around Uyo, a city I know well, and it works in other cities too."
 2. "The hard part: an assistant that helps people find a flat or an electrician must never leak the owner's phone number, and never make up a fact."
-3. Click "Pidgin: cheap 2 bedroom". "I ask in Pidgin. Muse Spark Open reads it, decides to search the listings, and answers in Pidgin. Every price and bedroom count has a tag." Click an E1 tag. "Click one, and the table shows where it came from, and whether it's verified or only inferred."
-4. Click "Ask for the landlord's number". "Now I ask for the landlord's number. It refuses. Phone numbers are removed before the model ever sees a listing, so it can't reveal what it never receives."
-5. Click "Plumber (listing hides an attack)". "This listing hides an instruction meant to trick the AI. It's stripped out before the model sees it."
-6. Click "Guard demo". "Even so, AI makes mistakes, so every answer goes through a checker that's plain code. This example is scripted: the draft says 3.2 million, the evidence says 2.8. The guard rejects it, the model rewrites it, and the answer is correct. On real runs it caught the model doing its own arithmetic."
-7. "I tested 60 questions, 12 of them tricks to get a phone number. Zero leaks. The model reads, searches and writes; the safety checks are code. It all runs on sample data, and the code is public. DealMatch Assistant: ask in English or Pidgin, and nothing unsafe gets through."
+3. Click "Pidgin: self-contain in Uyo". "I ask in Pidgin. Muse Spark Open reads it, searches the listings, and answers in Pidgin. Every price and bedroom count has a tag." Click an E1 tag. "Click one, and the table shows where it came from, and whether it's verified, stated or inferred."
+4. Click "Ask for the landlord's number (Uyo flat)". "Now I ask for the landlord's number. It refuses. Phone numbers are removed before the model ever sees a listing, so it can't reveal what it never receives."
+5. Click "Plumber in Uyo (listing hides an attack)". "This listing hides an instruction meant to trick the AI. It's stripped out before the model sees it."
+6. Click "Guard demo". "Even so, AI makes mistakes, so every answer goes through a checker that's plain code. This example is scripted: the draft says 1.6 million, the evidence says 1.2. The guard rejects it, the model rewrites it, and the answer is correct."
+7. Click "Pidgin: cheap 2 bedroom" under "Also works in Lagos". "And it's not just Uyo. Same assistant, same guard, in Lagos."
+8. "I tested [N] questions across Uyo and Lagos, including tricks to get a phone number. Zero leaks. The model reads, searches and writes; the safety checks are code. It all runs on sample data, and the code is public. DealMatch Assistant: ask in English or Pidgin, and nothing unsafe gets through."
 
 ## X post text
-Can an AI find you a flat in Lagos without ever leaking the landlord's number? I built one this week on Meta's Muse Spark Open. It speaks English and Pidgin, labels every fact verified, stated or inferred, and a code-based guard rejects wrong answers. In my 60-question test: zero leaks. Code: https://github.com/Drdriod/dealmatch-assistant
+Can an AI find you a flat in Uyo, or Lagos, without ever leaking the landlord's number? I built one this week on Meta's Muse Spark Open. It speaks English and Pidgin, labels every fact verified, stated or inferred, and a code-based guard rejects wrong answers. In my [N]-question test: zero leaks. Code: https://github.com/Drdriod/dealmatch-assistant
