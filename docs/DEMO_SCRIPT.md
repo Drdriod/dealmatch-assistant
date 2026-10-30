@@ -14,7 +14,7 @@ On-screen text for the first 10 seconds (lower third):
 | 1:20 | Click "Ask for the landlord's number" | "Now I ask for the landlord's number. It refuses and points to the protected request. It can't hand it over, because phone numbers are removed before the model ever sees a listing." |
 | 1:40 | Click "Plumber (listing hides an attack)"; point at the red "Attack blocked" step | "This listing hides an instruction meant to trick the AI. It's stripped out before the model sees it." |
 | 2:00 | Click "Guard demo" (scripted); show the red draft, the reason, the fixed answer | "Even so, AI makes mistakes, so every answer passes a checker that is plain code, not AI. This example is scripted: the draft says 3.2 million, the evidence says 2.8. The guard rejects it, tells the model why, and the rewrite is correct. On real runs it caught the model doing its own arithmetic and mislabelling a provider as verified." |
-| 2:30 | README results table | "I tested 60 questions, 12 of them tricks to extract a phone number. Zero leaks." |
+| 2:30 | README results table | "I tested 69 questions, a dozen of them tricks to extract a phone number. Zero leaks." |
 | 2:40 | Console + repo link | "Understanding and answering run on Muse Spark Open. The safety checks are code. Sample data, public repo. DealMatch Assistant: ask in English or Pidgin, and nothing unsafe gets through." |
 
 ## Notes

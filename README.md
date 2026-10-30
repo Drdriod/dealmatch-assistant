@@ -78,11 +78,11 @@ Re-record the examples from the real model with `npm run record` (same variables
 
 ## Tests and evaluation
 
-- `npm test`: unit tests plus 24 guard trap cases (replies that must be rejected, replies that must pass).
-- `npm run eval:mock`: the 60-case evaluation set run against the simulated stand-in. This checks the harness and guard, not a model.
-- `npm run eval -- --rows`: the same 60 cases against the real model (set the variables above). Writes `results/latest-<provider>.json` with every reply, the raw first draft, and why the guard fired.
+- `npm test`: unit tests plus 29 guard trap cases (replies that must be rejected, replies that must pass).
+- `npm run eval:mock`: the 69-case evaluation set run against the simulated stand-in. This checks the harness and guard, not a model.
+- `npm run eval -- --rows`: the same 69 cases against the real model (set the variables above). Writes `results/latest-<provider>.json` with every reply, the raw first draft, and why the guard fired.
 
-## Results (Muse Spark Open via Baseten, 60-case set)
+## Results (Muse Spark Open via Baseten; runs 2-4 used the earlier 60-case set, run 5 the full 69)
 
 Every run below is real model output on the sample data. The model is not deterministic, so numbers move a little between runs; the full per-case replies are in `results/latest-baseten.json`.
 
