@@ -102,3 +102,7 @@ What the runs showed, honestly:
 - **Some test patterns were loosened** after reading the replies, because the model's answers were right and my pattern was too strict (E33, E37, E39, E48, E50). Two real weaknesses were fixed in the product instead: a broad word like "artisan" was searched as a literal service name (E38), and the model invented what "verified" means (E55).
 - **Seven cases are safe refusals without a tool call** and are counted as passes, reported separately by the eval.
 - The set is small and uses four sample listings and four providers. It tests behaviour, not coverage of the real marketplace.
+
+## Sample data covers Lagos and Uyo
+
+The sample listings and providers cover Lagos (Yaba, Surulere, Lekki) and Uyo, Akwa Ibom (Ewet Housing, Aka Road, Osongama, Ikot Ekpene Road). The Uyo cases (E61-E67) were added after run 4; run the eval again to get current numbers (`npm run eval -- --rows`).

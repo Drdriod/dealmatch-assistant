@@ -9,12 +9,17 @@ import { simulatedModel } from '../src/simulated.js';
 const read = (f) => JSON.parse(readFileSync(new URL(`../data/${f}`, import.meta.url)));
 const listings = read('demo-listings.json'), providers = read('demo-providers.json'), presets = read('presets.json');
 const simulatedOnly = process.argv.includes('--simulated');
+const onlyArg = process.argv.find((a) => a.startsWith('--only='))?.slice(7);
+const only = onlyArg ? new Set(onlyArg.split(',')) : null;
+let previous = [];
+try { previous = read('replays.json').items; } catch { /* first recording */ }
 const provider = simulatedOnly ? null : resolveProvider();
 if (provider && !provider.apiKey) { console.error(`${provider.keyEnv} is not set. Use --simulated for the no-key version.`); process.exit(1); }
 
 const trim = (t) => (t.reasoning ? { ...t, reasoning: t.reasoning.slice(0, 700) } : t);
 const out = [];
 for (const p of presets) {
+  if (only && !only.has(p.id)) { const keep = previous.find((x) => x.id === p.id); if (keep) { out.push({ ...keep, label: p.label, group: p.group, request: p.request }); continue; } }
   const sim = simulatedOnly || p.scripted;
   const model = sim ? simulatedModel({ blunder: !!p.blunder }) : chat;
   const request = p.modelRequest ?? p.request;

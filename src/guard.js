@@ -18,7 +18,7 @@ export function sanitizeToolResult(result) {
 
 const MONEY = /\d{1,3}(?:,\d{3})+|\d{4,}/g;
 // Places a person might mention; combined with the areas found in tool results.
-const KNOWN_AREAS = ['yaba','surulere','lekki','ikeja','ikoyi','ajah','victoria island','maryland','gbagada','ikorodu','festac','wuse','gwarinpa','maitama','garki','jabi'];
+const KNOWN_AREAS = ['yaba','surulere','lekki','ikeja','ikoyi','ajah','victoria island','maryland','gbagada','ikorodu','festac','wuse','gwarinpa','maitama','garki','jabi','ewet housing','aka road','osongama','ikot ekpene road','itam','shelter afrique','nwaniba road'];
 const num = (t) => Number(String(t).replace(/,/g, ''));
 const TIER_WORD = /^[\s(\-\u2014:*]*(verified|stated|inferred)\b/i;
 

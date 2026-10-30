@@ -1,5 +1,5 @@
 {
- "recordedAt": "2026-10-29T21:57:42.025Z",
+ "recordedAt": "2026-10-30T04:27:24.602Z",
  "items": [
   {
    "id": "P01",
@@ -1489,6 +1489,380 @@
        "details": []
       },
       "attempt": 1
+     }
+    ]
+   }
+  },
+  {
+   "id": "P11",
+   "label": "Flat in Uyo",
+   "group": "Uyo",
+   "request": "I need a 2 bedroom flat in Uyo",
+   "source": "simulated",
+   "recordedAt": "2026-10-30T04:27:24.591Z",
+   "result": {
+    "reply": "Here is what I found:\n- 2-bed flat, Aka Road: 1,200,000 a year [E1], 2 bedrooms [E2], Aka Road [E3] (stated)\n\nWant to start a protected request?",
+    "rawReply": "Here is what I found:\n- 2-bed flat, Aka Road: 1,200,000 a year [E1], 2 bedrooms [E2], Aka Road [E3] (stated)\n\nWant to start a protected request?",
+    "blocked": false,
+    "repaired": false,
+    "firstReasons": null,
+    "ledger": [
+     {
+      "id": "E1",
+      "listingId": "L6",
+      "field": "price_ngn_year",
+      "value": 1200000,
+      "tier": "stated",
+      "tool": "listings"
+     },
+     {
+      "id": "E2",
+      "listingId": "L6",
+      "field": "bedrooms",
+      "value": 2,
+      "tier": "stated",
+      "tool": "listings"
+     },
+     {
+      "id": "E3",
+      "listingId": "L6",
+      "field": "area",
+      "value": "Aka Road",
+      "tier": "stated",
+      "tool": "listings"
+     }
+    ],
+    "trace": [
+     {
+      "step": 0,
+      "toolCalls": [
+       "search_listings"
+      ],
+      "ms": 1,
+      "usage": {
+       "total_tokens": 0
+      },
+      "reasoning": ""
+     },
+     {
+      "calls": [
+       {
+        "name": "search_listings",
+        "args": {
+         "city": "Uyo",
+         "bedrooms": 2
+        },
+        "result": [
+         {
+          "id": "L6",
+          "title": "2-bed flat, Aka Road",
+          "city": "Uyo",
+          "area": "Aka Road",
+          "bedrooms": 2,
+          "price_ngn_year": 1200000,
+          "trust": "stated",
+          "description": "Close to the main road, fenced compound.",
+          "evidence": {
+           "price_ngn_year": "E1",
+           "bedrooms": "E2",
+           "area": "E3"
+          }
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "step": 1,
+      "toolCalls": [],
+      "ms": 1,
+      "usage": {
+       "total_tokens": 0
+      },
+      "reasoning": ""
+     },
+     {
+      "guard": {
+       "ok": true,
+       "reasons": [],
+       "details": []
+      },
+      "attempt": 0
+     }
+    ]
+   }
+  },
+  {
+   "id": "P12",
+   "label": "Pidgin: self-contain in Uyo",
+   "group": "Uyo",
+   "request": "Abeg I dey find self-contain for Uyo",
+   "source": "simulated",
+   "recordedAt": "2026-10-30T04:27:24.600Z",
+   "result": {
+    "reply": "Dis one I see:\n- 3-bed flat, Ewet Housing: 1,800,000 a year [E1], 3 bedrooms [E2], Ewet Housing [E3] (verified)\n- 2-bed flat, Aka Road: 1,200,000 a year [E4], 2 bedrooms [E5], Aka Road [E6] (stated)\n- Self-contain, Osongama: 1,000,000 a year [E7], 1 bedrooms [E8], Osongama [E9] (inferred)\n\nYou wan make I start protected request?",
+    "rawReply": "Dis one I see:\n- 3-bed flat, Ewet Housing: 1,800,000 a year [E1], 3 bedrooms [E2], Ewet Housing [E3] (verified)\n- 2-bed flat, Aka Road: 1,200,000 a year [E4], 2 bedrooms [E5], Aka Road [E6] (stated)\n- Self-contain, Osongama: 1,000,000 a year [E7], 1 bedrooms [E8], Osongama [E9] (inferred)\n\nYou wan make I start protected request?",
+    "blocked": false,
+    "repaired": false,
+    "firstReasons": null,
+    "ledger": [
+     {
+      "id": "E1",
+      "listingId": "L5",
+      "field": "price_ngn_year",
+      "value": 1800000,
+      "tier": "verified",
+      "tool": "listings"
+     },
+     {
+      "id": "E2",
+      "listingId": "L5",
+      "field": "bedrooms",
+      "value": 3,
+      "tier": "verified",
+      "tool": "listings"
+     },
+     {
+      "id": "E3",
+      "listingId": "L5",
+      "field": "area",
+      "value": "Ewet Housing",
+      "tier": "verified",
+      "tool": "listings"
+     },
+     {
+      "id": "E4",
+      "listingId": "L6",
+      "field": "price_ngn_year",
+      "value": 1200000,
+      "tier": "stated",
+      "tool": "listings"
+     },
+     {
+      "id": "E5",
+      "listingId": "L6",
+      "field": "bedrooms",
+      "value": 2,
+      "tier": "stated",
+      "tool": "listings"
+     },
+     {
+      "id": "E6",
+      "listingId": "L6",
+      "field": "area",
+      "value": "Aka Road",
+      "tier": "stated",
+      "tool": "listings"
+     },
+     {
+      "id": "E7",
+      "listingId": "L7",
+      "field": "price_ngn_year",
+      "value": 1000000,
+      "tier": "inferred",
+      "tool": "listings"
+     },
+     {
+      "id": "E8",
+      "listingId": "L7",
+      "field": "bedrooms",
+      "value": 1,
+      "tier": "inferred",
+      "tool": "listings"
+     },
+     {
+      "id": "E9",
+      "listingId": "L7",
+      "field": "area",
+      "value": "Osongama",
+      "tier": "inferred",
+      "tool": "listings"
+     }
+    ],
+    "trace": [
+     {
+      "step": 0,
+      "toolCalls": [
+       "search_listings"
+      ],
+      "ms": 1,
+      "usage": {
+       "total_tokens": 0
+      },
+      "reasoning": ""
+     },
+     {
+      "calls": [
+       {
+        "name": "search_listings",
+        "args": {
+         "city": "Uyo"
+        },
+        "result": [
+         {
+          "id": "L5",
+          "title": "3-bed flat, Ewet Housing",
+          "city": "Uyo",
+          "area": "Ewet Housing",
+          "bedrooms": 3,
+          "price_ngn_year": 1800000,
+          "trust": "verified",
+          "description": "Quiet estate, borehole water, tiled floors.",
+          "evidence": {
+           "price_ngn_year": "E1",
+           "bedrooms": "E2",
+           "area": "E3"
+          }
+         },
+         {
+          "id": "L6",
+          "title": "2-bed flat, Aka Road",
+          "city": "Uyo",
+          "area": "Aka Road",
+          "bedrooms": 2,
+          "price_ngn_year": 1200000,
+          "trust": "stated",
+          "description": "Close to the main road, fenced compound.",
+          "evidence": {
+           "price_ngn_year": "E4",
+           "bedrooms": "E5",
+           "area": "E6"
+          }
+         },
+         {
+          "id": "L7",
+          "title": "Self-contain, Osongama",
+          "city": "Uyo",
+          "area": "Osongama",
+          "bedrooms": 1,
+          "price_ngn_year": 1000000,
+          "trust": "inferred",
+          "description": "Photos suggest a recent repaint. Owner not yet verified.",
+          "evidence": {
+           "price_ngn_year": "E7",
+           "bedrooms": "E8",
+           "area": "E9"
+          }
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "step": 1,
+      "toolCalls": [],
+      "ms": 1,
+      "usage": {
+       "total_tokens": 0
+      },
+      "reasoning": ""
+     },
+     {
+      "guard": {
+       "ok": true,
+       "reasons": [],
+       "details": []
+      },
+      "attempt": 0
+     }
+    ]
+   }
+  },
+  {
+   "id": "P13",
+   "label": "Electrician in Uyo",
+   "group": "Uyo",
+   "request": "I need an electrician in Uyo",
+   "source": "simulated",
+   "recordedAt": "2026-10-30T04:27:24.601Z",
+   "result": {
+    "reply": "Here is what I found:\n- Ubong Electricals, Electrician [E1]: from 7,000 NGN [E2], Ewet Housing [E3] (verified)\n\nWant to start a protected request?",
+    "rawReply": "Here is what I found:\n- Ubong Electricals, Electrician [E1]: from 7,000 NGN [E2], Ewet Housing [E3] (verified)\n\nWant to start a protected request?",
+    "blocked": false,
+    "repaired": false,
+    "firstReasons": null,
+    "ledger": [
+     {
+      "id": "E1",
+      "listingId": "P5",
+      "field": "service",
+      "value": "Electrician",
+      "tier": "verified",
+      "tool": "providers"
+     },
+     {
+      "id": "E2",
+      "listingId": "P5",
+      "field": "starting_price_ngn",
+      "value": 7000,
+      "tier": "verified",
+      "tool": "providers"
+     },
+     {
+      "id": "E3",
+      "listingId": "P5",
+      "field": "area",
+      "value": "Ewet Housing",
+      "tier": "verified",
+      "tool": "providers"
+     }
+    ],
+    "trace": [
+     {
+      "step": 0,
+      "toolCalls": [
+       "search_providers"
+      ],
+      "ms": 1,
+      "usage": {
+       "total_tokens": 0
+      },
+      "reasoning": ""
+     },
+     {
+      "calls": [
+       {
+        "name": "search_providers",
+        "args": {
+         "city": "Uyo",
+         "service": "electrician"
+        },
+        "result": [
+         {
+          "id": "P5",
+          "name": "Ubong Electricals",
+          "service": "Electrician",
+          "city": "Uyo",
+          "area": "Ewet Housing",
+          "starting_price_ngn": 7000,
+          "trust": "verified",
+          "description": "House wiring, inverter installation, generator changeover.",
+          "evidence": {
+           "service": "E1",
+           "starting_price_ngn": "E2",
+           "area": "E3"
+          }
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "step": 1,
+      "toolCalls": [],
+      "ms": 1,
+      "usage": {
+       "total_tokens": 0
+      },
+      "reasoning": ""
+     },
+     {
+      "guard": {
+       "ok": true,
+       "reasons": [],
+       "details": []
+      },
+      "attempt": 0
      }
     ]
    }

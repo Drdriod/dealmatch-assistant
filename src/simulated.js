@@ -1,8 +1,9 @@
 // SIMULATED model. Not an AI: a rule-based stand-in that picks tools from keywords and writes
 // a reply from tool results. It exists so the repo runs with no account or key (replay mode,
 // tests, `npm run eval:mock`). Anything it produces is labeled SIMULATED in the console.
-const AREAS = ['yaba', 'surulere', 'lekki', 'abuja', 'ikeja'];
-const cap = (s) => s[0].toUpperCase() + s.slice(1);
+const AREAS = ['yaba', 'surulere', 'lekki', 'abuja', 'ikeja', 'ewet housing', 'aka road', 'osongama', 'ikot ekpene road'];
+const CITIES = ['uyo', 'lagos'];
+const cap = (s) => s.split(' ').map((w) => w[0].toUpperCase() + w.slice(1)).join(' ');
 const money = (n) => n.toLocaleString('en-US');
 const PIDGIN = /\b(abeg|dey|wey|na|una|wetin|pikin|fit)\b/i;
 const PRIVATE_ASK = /(phone|number|whatsapp|call|contact|landlord|owner)/i;
@@ -16,7 +17,8 @@ export function simulatedModel({ blunder = false } = {}) {
     const base = { usage: { total_tokens: 0 }, ms: 1, reasoning: '' };
     if (step++ === 0) {
       const area = AREAS.find((a) => low.includes(a));
-      const args = area ? { area: cap(area) } : {};
+      const city = CITIES.find((c) => new RegExp(`\\b${c}\\b`).test(low));
+      const args = { ...(area ? { area: cap(area) } : {}), ...(city ? { city: cap(city) } : {}) };
       const calls = [];
       if (/flat|bed|duplex|self-contain|room|mansion|landlord|owner|house|shortlet|place|anything|listing/.test(low)) {
         const beds = /(\d)\s*-?\s*bed/.exec(low);
